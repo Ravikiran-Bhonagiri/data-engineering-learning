@@ -43,6 +43,20 @@ We don't just touch on tools; we master key technologies used in modern data pla
 
 ---
 
+## ☁️ Cloud Building Blocks (The Trinity)
+
+We go beyond generic "Hello World" tutorials. This portfolio includes **production-grade**, grounded documentation for the three major clouds. **48 verified deep-dive documents** covering storage, compute, analytics, and governance.
+
+| Cloud | Status | Content Highlights |
+|:------|:-------|:-------------------|
+| **AWS** | ✅ **Complete** | [**explore/aws**](cloud-building-blocks/aws/services/) - Redshift, Glue, EMR, Athena optimization (`$5/TB` vs `$0.015/TB`) |
+| **GCP** | ✅ **Complete** | [**explore/gcp**](cloud-building-blocks/gcp/) - BigQuery slots optimization, Dataflow vs Dataproc decision frameworks |
+| **Azure** | ✅ **Complete** | [**explore/azure**](cloud-building-blocks/azure/) - Synapse Dedicated vs Serverless, ADF pipelines, Purview governance |
+
+*Each cloud section includes 16 specialized files verifying pricing, architecture patterns, and "Start Simple" strategies.*
+
+---
+
 ## 🗺️ Learning Roadmap
 
 No matter where you are starting, we have a path for you.
