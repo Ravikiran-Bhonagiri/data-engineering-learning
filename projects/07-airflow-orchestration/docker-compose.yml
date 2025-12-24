@@ -1,0 +1,20 @@
+version: '3'
+services:
+  airflow:
+    image: apache/airflow:2.7.2
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__RBAC=True
+      - _AIRFLOW_DB_UPGRADE=True
+      - _AIRFLOW_WWW_USER_CREATE=True
+      - _AIRFLOW_WWW_USER_USERNAME=airflow
+      - _AIRFLOW_WWW_USER_PASSWORD=airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    ports:
+      - "8080:8080"
+    command: airflow standalone

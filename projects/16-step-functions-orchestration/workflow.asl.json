@@ -1,0 +1,62 @@
+{
+    "Comment": "An example of the Amazon States Language using a Choice state.",
+    "StartAt": "ValidateInput",
+    "States": {
+        "ValidateInput": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:ValidateInputFunction",
+            "Next": "IsDataClean",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ]
+        },
+        "IsDataClean": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.is_clean",
+                    "BooleanEquals": true,
+                    "Next": "ProcessOrder"
+                }
+            ],
+            "Default": "ManualReview_DLQ"
+        },
+        "ProcessOrder": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:ProcessOrderFunction",
+            "Next": "SendConfirmation",
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "PaymentFailedException"
+                    ],
+                    "Next": "RefundCustomer"
+                }
+            ]
+        },
+        "RefundCustomer": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:RefundFunction",
+            "End": true
+        },
+        "ManualReview_DLQ": {
+            "Type": "Fail",
+            "Cause": "Invalid Input Data",
+            "Error": "ValidationFailed"
+        },
+        "SendConfirmation": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:SendEmailFunction",
+            "End": true
+        }
+    }
+}

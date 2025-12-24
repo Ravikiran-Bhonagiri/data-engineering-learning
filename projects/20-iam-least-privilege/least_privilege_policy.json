@@ -1,0 +1,45 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowListingOnlySpecificFolder",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::finance-datalake",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": [
+                        "incoming/payroll/*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowWritingOnlyFromCorporateVPN",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Resource": "arn:aws:s3:::finance-datalake/incoming/payroll/*",
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "203.0.113.0/24"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDeletingDataAlways",
+            "Effect": "Deny",
+            "Action": "s3:DeleteObject",
+            "Resource": "arn:aws:s3:::finance-datalake/*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:PrincipalArn": "arn:aws:iam::123456789012:role/AdminRole"
+                }
+            }
+        }
+    ]
+}

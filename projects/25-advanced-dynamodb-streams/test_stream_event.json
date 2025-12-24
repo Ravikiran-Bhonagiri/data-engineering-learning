@@ -1,0 +1,86 @@
+{
+    "Records": [
+        {
+            "eventID": "c4ca4238a0b923820dcc509a6f75849b",
+            "eventName": "INSERT",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-east-1",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1428537600,
+                "Keys": {
+                    "PK": {
+                        "S": "USER#101"
+                    },
+                    "SK": {
+                        "S": "PROFILE"
+                    }
+                },
+                "NewImage": {
+                    "PK": {
+                        "S": "USER#101"
+                    },
+                    "SK": {
+                        "S": "PROFILE"
+                    },
+                    "email": {
+                        "S": "newuser@example.com"
+                    },
+                    "status": {
+                        "S": "PENDING"
+                    }
+                },
+                "StreamViewType": "NEW_AND_OLD_IMAGES",
+                "SizeBytes": 26
+            }
+        },
+        {
+            "eventID": "c81e728d9d4c2f636f067f89cc14862c",
+            "eventName": "MODIFY",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-east-1",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1428537600,
+                "Keys": {
+                    "PK": {
+                        "S": "USER#101"
+                    },
+                    "SK": {
+                        "S": "PROFILE"
+                    }
+                },
+                "OldImage": {
+                    "PK": {
+                        "S": "USER#101"
+                    },
+                    "SK": {
+                        "S": "PROFILE"
+                    },
+                    "email": {
+                        "S": "newuser@example.com"
+                    },
+                    "status": {
+                        "S": "PENDING"
+                    }
+                },
+                "NewImage": {
+                    "PK": {
+                        "S": "USER#101"
+                    },
+                    "SK": {
+                        "S": "PROFILE"
+                    },
+                    "email": {
+                        "S": "newuser@example.com"
+                    },
+                    "status": {
+                        "S": "ACTIVE"
+                    }
+                },
+                "StreamViewType": "NEW_AND_OLD_IMAGES",
+                "SizeBytes": 50
+            }
+        }
+    ]
+}

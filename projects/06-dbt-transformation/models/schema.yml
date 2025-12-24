@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_users
+    description: "Staged user data with boolean flags"
+    columns:
+      - name: user_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_users
+    description: "Active users dimension table"
+    columns:
+      - name: user_id
+        tests:
+          - unique
+          - not_null
+      - name: signup_cohort
+        description: "Month the user joined"

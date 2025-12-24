@@ -1,0 +1,54 @@
+# data-api.yaml
+# Defines the Deployment (App) and Service (Network)
+
+---
+# 1. Deployment: The Logic
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-api-deployment
+  labels:
+    app: data-api
+spec:
+  replicas: 3                    # Scalability: Run 3 copies
+  selector:
+    matchLabels:
+      app: data-api
+  template:
+    metadata:
+      labels:
+        app: data-api
+    spec:
+      containers:
+      - name: data-api-container
+        image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-data-api:v1
+        ports:
+        - containerPort: 80
+        resources:               # Efficiency: Define limits
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        env:                     # Config: Inject Secrets
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: password
+
+---
+# 2. Service: The Network Access
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-api-service
+spec:
+  selector:
+    app: data-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer             # Expose to AWS Load Balancer
