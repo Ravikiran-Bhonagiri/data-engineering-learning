@@ -616,6 +616,6 @@ This portfolio is your:
 
 *"The best time to start was yesterday. The second best time is now."*
 
-**Last Updated:** December 2024
+**Last Updated:** December 2025
 
 </div>
